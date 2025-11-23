@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tools Converter Exchange Rates: THB-MYR</title>
+    <title>Travel Wallet: THB-MYR</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
 
         /* --- THEME VARIABLES --- */
         :root {
-            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            /* Light Mode Animation Colors (Pastel) */
+            --bg-gradient: linear-gradient(-45deg, #e0c3fc, #8ec5fc, #a8edea, #fed6e3);
+            
             --card-bg: rgba(255, 255, 255, 0.9);
             --card-border: rgba(255, 255, 255, 0.8);
             --text-main: #1e293b;
@@ -26,7 +28,9 @@
         }
 
         [data-theme="dark"] {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            /* Dark Mode Animation Colors (Deep Space) */
+            --bg-gradient: linear-gradient(-45deg, #0f172a, #312e81, #581c87, #1e293b);
+
             --card-bg: rgba(30, 41, 59, 0.85);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
@@ -46,12 +50,22 @@
         body {
             font-family: 'Prompt', sans-serif;
             background: var(--bg-gradient);
+            /* Enable Animation for BOTH modes */
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 10px;
-            transition: background 0.5s ease;
+        }
+
+        /* Animation Keyframes */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -62,7 +76,7 @@
             border-radius: 28px;
             padding: 25px 20px;
             width: 100%;
-            max-width: 380px; /* Reduced Width */
+            max-width: 380px; 
             box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
@@ -74,7 +88,7 @@
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
         }
         .app-title {
-            font-size: 1.3rem; font-weight: 700; color: var(--text-main); /* Reduced Font */
+            font-size: 1.3rem; font-weight: 700; color: var(--text-main);
             display: flex; flex-direction: column; line-height: 1.1; letter-spacing: -0.5px;
         }
         .app-title span { font-size: 0.75rem; color: var(--text-sub); font-weight: 400; margin-top: 2px; letter-spacing: 0; }
@@ -108,10 +122,10 @@
         .dash-flag { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .dash-country { font-size: 0.8rem; font-weight: 600; color: var(--text-sub); }
 
-        .dash-time { font-size: 1.5rem; font-weight: 700; color: var(--text-main); line-height: 1; margin: 4px 0; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; } /* Reduced Font */
+        .dash-time { font-size: 1.5rem; font-weight: 700; color: var(--text-main); line-height: 1; margin: 4px 0; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
         
         .dash-weather-row { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
-        .w-icon { width: 36px; height: 36px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15)); } /* Reduced Icon */
+        .w-icon { width: 36px; height: 36px; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15)); }
         .w-temp { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
 
         /* --- Tabs --- */
@@ -143,12 +157,21 @@
         }
         input {
             width: 100%; border: none; background: transparent;
-            font-size: 1.6rem; /* Reduced Font */
+            font-size: 1.6rem;
             font-weight: 600; color: var(--text-main);
             padding: 10px 0; outline: none; font-family: 'Prompt';
             letter-spacing: -0.5px;
         }
-        input::placeholder { color: var(--text-sub); opacity: 0.4; font-weight: 400; }
+        
+        /* [NEW] Placeholder Styling */
+        input::placeholder { 
+            color: var(--text-sub); 
+            opacity: 0.5; 
+            font-weight: 400;
+            font-size: 1.1rem; /* Smaller than input text (1.6rem) for better fit */
+            transform: translateY(-1px); /* Slight alignment adjustment */
+        }
+
         .currency-tag {
             display: flex; align-items: center; gap: 6px; font-weight: 700;
             color: var(--text-main); font-size: 0.9rem; padding-left: 10px;
@@ -183,7 +206,7 @@
             box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.4); margin-top: 15px;
         }
         .res-label { font-size: 0.85rem; opacity: 0.95; margin-bottom: 5px; font-weight: 500; }
-        .res-big { font-size: 2.2rem; font-weight: 700; line-height: 1; letter-spacing: -1px; margin-bottom: 4px;} /* Reduced Font */
+        .res-big { font-size: 2.2rem; font-weight: 700; line-height: 1; letter-spacing: -1px; margin-bottom: 4px;}
         .res-small { font-size: 0.9rem; opacity: 0.9; margin-top: 6px; background: rgba(255,255,255,0.25); display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 500; }
 
         /* --- Footer --- */
@@ -325,15 +348,16 @@
         const icon = themeBtn.querySelector('i');
         const body = document.body;
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        // Force Light Mode on initialization (Ignore saved preference)
+        const savedTheme = 'light';
         body.setAttribute('data-theme', savedTheme);
         updateIcon(savedTheme);
 
+        // Toggle logic still works but resets to light on reload
         themeBtn.addEventListener('click', () => {
             const current = body.getAttribute('data-theme');
             const newTheme = current === 'light' ? 'dark' : 'light';
             body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
             updateIcon(newTheme);
         });
 
